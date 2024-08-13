@@ -2,6 +2,8 @@ package com.toosterr.backend.controller;
 
 import com.toosterr.backend.entity.Product;
 import com.toosterr.backend.service.ProductService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,21 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> getProducts() {
-        return productService.findAll();
+    public ResponseEntity<?> getProducts() {
+        try {
+            return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostMapping("/add/product")
-    public Product addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+        try {
+            return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
