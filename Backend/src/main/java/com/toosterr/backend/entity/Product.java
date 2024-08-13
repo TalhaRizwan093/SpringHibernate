@@ -18,7 +18,11 @@ public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+
+    @Column(nullable = false, unique = true)
+    private String sku;
+
     private String name;
     private String description;
     private String detail;
