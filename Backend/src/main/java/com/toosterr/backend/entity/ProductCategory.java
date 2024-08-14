@@ -1,17 +1,17 @@
 package com.toosterr.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
+import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "product_category")
+@Builder
+@SQLRestriction("deleted = false")
 public class ProductCategory extends BaseEntity {
 
     @Id

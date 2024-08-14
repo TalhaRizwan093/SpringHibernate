@@ -1,7 +1,9 @@
 package com.toosterr.backend.controller;
 
+import com.toosterr.backend.dto.SaveProductRequest;
 import com.toosterr.backend.entity.Product;
 import com.toosterr.backend.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,20 +22,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<?> getProducts() {
-        try {
-            return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/add/product")
-    public ResponseEntity<?> addProduct(@RequestBody Product product) {
-        try {
-            return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ResponseEntity<?> addProduct(@Valid @RequestBody SaveProductRequest product) {
+        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
 
 }
