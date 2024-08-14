@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

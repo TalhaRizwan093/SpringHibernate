@@ -2,6 +2,9 @@ package com.toosterr.backend.service;
 
 import com.toosterr.backend.dto.SaveProductRequest;
 import com.toosterr.backend.entity.Product;
+import com.toosterr.backend.entity.ProductCategory;
+import com.toosterr.backend.exception.brandException.BrandNotFoundException;
+import com.toosterr.backend.repository.BrandRepository;
 import com.toosterr.backend.repository.ProductRepository;
 import com.toosterr.backend.util.Helper;
 import org.springframework.stereotype.Service;
@@ -13,10 +16,12 @@ import java.util.Random;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final BrandRepository brandRepository;
     private final Helper helper;
 
-    public ProductService(ProductRepository productRepository, Helper helper) {
+    public ProductService(ProductRepository productRepository, BrandRepository brandRepository, Helper helper) {
         this.productRepository = productRepository;
+        this.brandRepository = brandRepository;
         this.helper = helper;
     }
 
@@ -25,15 +30,24 @@ public class ProductService {
     }
 
     public Product addProduct(SaveProductRequest product) {
-        Product prod = Product.builder()
-                .name(product.getName())
-                .sku(generateSKU(product))
-                .detail(product.getDetail())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .quantity(product.getQuantity())
-                .build();
-        return productRepository.save(prod);
+        try {
+
+            ProductCategory productCategory = new ProductCategory();
+
+            Product prod = Product.builder()
+                    .name(product.getName())
+                    .sku(generateSKU(product))
+                    .detail(product.getDetail())
+                    .description(product.getDescription())
+                    .price(product.getPrice())
+                    .quantity(product.getQuantity())
+                    .brand(brandRepository.getBrandById(product.getBrandId())
+                            .orElseThrow(() -> new BrandNotFoundException(String.format("Brand with id {0} not found",product.getBrandId()))))
+                    .build();
+            return productRepository.save(prod);
+        } catch (BrandNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String generateSKU(SaveProductRequest product) {

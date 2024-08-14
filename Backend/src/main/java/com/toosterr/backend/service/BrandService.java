@@ -1,5 +1,6 @@
 package com.toosterr.backend.service;
 
+import com.toosterr.backend.dto.AddBrandRequest;
 import com.toosterr.backend.entity.Brand;
 import com.toosterr.backend.repository.BrandRepository;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,15 @@ public class BrandService {
         return brandRepository.findAll();
     }
 
+    public Brand add(AddBrandRequest brand) {
+        try {
+            Brand brandEntity = Brand.builder()
+                    .name(brand.getName())
+                    .description(brand.getDescription())
+                    .build();
+            return brandRepository.save(brandEntity);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

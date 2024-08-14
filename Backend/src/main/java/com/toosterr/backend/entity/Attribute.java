@@ -1,16 +1,14 @@
 package com.toosterr.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "attribute")
+@Builder
 public class Attribute extends BaseEntity {
 
     @Id

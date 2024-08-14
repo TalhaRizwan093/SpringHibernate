@@ -1,15 +1,15 @@
 package com.toosterr.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "brand")
+@Builder
 public class Brand extends BaseEntity {
 
     @Id

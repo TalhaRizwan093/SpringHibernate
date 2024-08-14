@@ -1,6 +1,7 @@
 package com.toosterr.backend.exception;
 
 import com.toosterr.backend.dto.CustomErrorResponse;
+import com.toosterr.backend.exception.categoryException.CategoryNotFoundException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,25 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         String message = messageSource.getMessage("api.param.invalid", new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, message);
-        CustomErrorResponse errorResponse = new CustomErrorResponse(HttpStatus.BAD_REQUEST, problemDetail, errors, "ARGUMENT_NOT_VALID", 101);
+        CustomErrorResponse errorResponse = new CustomErrorResponse(message, HttpStatus.BAD_REQUEST, errors, "ARGUMENT_NOT_VALID");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<?> handleCategoryNotFoundException(CategoryNotFoundException ex) {
+        String message = messageSource.getMessage("category.not.found", new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
+        CustomErrorResponse errorResponse = new CustomErrorResponse(message,HttpStatus.INTERNAL_SERVER_ERROR,"INTERNAL_SERVER_ERROR");
+        return  new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntimeException(RuntimeException ex) {
+        String message = messageSource.getMessage("internal.server.error", new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
+        CustomErrorResponse errorResponse = new CustomErrorResponse(message,HttpStatus.INTERNAL_SERVER_ERROR,"INTERNAL_SERVER_ERROR");
+        return  new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }

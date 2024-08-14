@@ -1,5 +1,6 @@
 package com.toosterr.backend.service;
 
+import com.toosterr.backend.dto.AddCategoryRequest;
 import com.toosterr.backend.entity.Category;
 import com.toosterr.backend.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,15 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public Category add(AddCategoryRequest category) {
+        try {
+            Category categoryEntity = Category.builder()
+                    .categoryName(category.getName())
+                    .description(category.getDescription())
+                    .build();
+            return categoryRepository.save(categoryEntity);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
