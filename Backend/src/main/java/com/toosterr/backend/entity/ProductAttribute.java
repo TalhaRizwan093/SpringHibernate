@@ -1,10 +1,8 @@
 package com.toosterr.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.util.List;
 
@@ -14,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "product_attribute")
+@SQLRestriction("deleted = false")
+@Builder
 public class ProductAttribute extends BaseEntity {
 
     @Id

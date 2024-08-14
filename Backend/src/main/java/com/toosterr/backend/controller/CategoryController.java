@@ -2,6 +2,7 @@ package com.toosterr.backend.controller;
 
 import com.toosterr.backend.dto.AddCategoryRequest;
 import com.toosterr.backend.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CategoryController {
     }
 
     @PostMapping("/category/add")
-    public ResponseEntity<?> addCategory(@RequestBody AddCategoryRequest category) {
+    public ResponseEntity<?> addCategory(@RequestBody @Valid AddCategoryRequest category) {
         return new ResponseEntity<>(categoryService.add(category), HttpStatus.OK);
     }
 

@@ -1,10 +1,11 @@
 package com.toosterr.backend.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +23,13 @@ public class SaveProductRequest {
     @Min(value = 1, message = "Product quantity must be greater than 1")
     private int quantity;
     private Integer brandId;
-    @NotBlank(message = "Product must have a category")
-    private Integer categoryId;
+    @NotNull(message = "List of category must contain at least one element")
+    @NotEmpty(message = "List of category must contain at least one element")
+    @Size(min = 1, message = "List of category must contain at least one element")
+    private List<@Positive(message = "Each integer must be positive") Integer> categoryList;
+    @NotNull(message = "Product must have at least one attribute")
+    @NotEmpty(message = "Product must have at least one attribute")
+    @Size(min = 1, message = "Product must have at least one attribute")
+    private List<@Positive(message = "Each integer must be positive") Integer> attributeList;
 
 }

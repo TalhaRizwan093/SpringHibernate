@@ -2,13 +2,19 @@ package com.toosterr.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLRestriction;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "attribute")
+@Table(name = "attribute",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "UK_Category_Attribute_Name", columnNames = {"name","category_id"})
+    }
+)
 @Builder
+@SQLRestriction("deleted = false")
 public class Attribute extends BaseEntity {
 
     @Id
@@ -17,7 +23,7 @@ public class Attribute extends BaseEntity {
     private String name;
     private String type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 

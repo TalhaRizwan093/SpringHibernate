@@ -1,13 +1,10 @@
 package com.toosterr.backend.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.SQLRestriction;
 
-import java.time.LocalDateTime;
-
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -16,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "product")
 @Builder
+@SQLRestriction("deleted = false")
 public class Product extends BaseEntity {
 
     @Id
@@ -34,5 +32,17 @@ public class Product extends BaseEntity {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categories;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "product_attribute",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+    private List<Attribute> attributes;
 
 }

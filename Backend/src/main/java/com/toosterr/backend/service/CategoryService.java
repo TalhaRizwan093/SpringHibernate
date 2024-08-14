@@ -21,14 +21,12 @@ public class CategoryService {
     }
 
     public Category add(AddCategoryRequest category) {
-        try {
-            Category categoryEntity = Category.builder()
-                    .categoryName(category.getName())
-                    .description(category.getDescription())
-                    .build();
-            return categoryRepository.save(categoryEntity);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
+        Category categoryEntity = Category.builder()
+                .categoryName(category.getName())
+                .description(category.getDescription())
+                .build();
+        return categoryRepository.save(categoryEntity);
+
     }
 }

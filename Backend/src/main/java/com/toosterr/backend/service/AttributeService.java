@@ -25,7 +25,6 @@ public class AttributeService {
     }
 
     public Attribute add(AddAttributeRequest attribute) {
-        try {
             Attribute attributeEntity = Attribute.builder()
                     .name(attribute.getName())
                     .type(attribute.getType())
@@ -33,8 +32,5 @@ public class AttributeService {
                             .orElseThrow(() -> new CategoryNotFoundException("Given Category Not Found")))
                     .build();
             return  attributeRepository.save(attributeEntity);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

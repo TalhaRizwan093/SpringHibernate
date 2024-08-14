@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
-@FilterDef(name = "deletedFilter", parameters = @ParamDef(name = "isDeleted", type = Boolean.class))
-@Filter(name = "deletedFilter", condition = "delete = :isDeleted")
 public class BaseEntity {
 
     @Column(name = "deleted", nullable = false)

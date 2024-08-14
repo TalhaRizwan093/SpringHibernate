@@ -22,20 +22,12 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<?> getProducts() {
-        try {
-            return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/add/product")
-    public ResponseEntity<?> addProduct(@RequestBody @Valid SaveProductRequest product) {
-        try {
-            return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public ResponseEntity<?> addProduct(@Valid @RequestBody SaveProductRequest product) {
+        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
 
 }
