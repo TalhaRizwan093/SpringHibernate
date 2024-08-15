@@ -8,6 +8,9 @@ import com.toosterr.backend.exception.categoryException.CategoryNotFoundExceptio
 import com.toosterr.backend.repository.*;
 import com.toosterr.backend.util.Helper;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,7 +43,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Page<Product> findAll(int pageNumber, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
 
+        return productRepository.GetAll(pageable);
+    }
+
+    @Transactional
     public boolean addProduct(SaveProductRequest productRequest) {
         Brand brand = brandRepository.getBrandById(productRequest.getBrandId())
                 .orElseThrow(() -> new BrandNotFoundException(String.format("Brand with id {0} not found",productRequest.getBrandId())));
