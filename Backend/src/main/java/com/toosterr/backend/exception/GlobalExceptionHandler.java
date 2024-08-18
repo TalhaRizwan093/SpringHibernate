@@ -2,6 +2,7 @@ package com.toosterr.backend.exception;
 
 import com.toosterr.backend.dto.CustomErrorResponse;
 import com.toosterr.backend.exception.categoryException.CategoryNotFoundException;
+import com.toosterr.backend.exception.productException.ProductNotFoundException;
 import com.toosterr.backend.util.Constant;
 import com.toosterr.backend.util.Helper;
 import org.springframework.context.MessageSource;
@@ -76,6 +77,17 @@ public class GlobalExceptionHandler {
         String message = messageSource.getMessage("data.integrity.exception", new Object[]{ex.getMessage()}, LocaleContextHolder.getLocale());
         CustomErrorResponse errorResponse = new CustomErrorResponse(message,HttpStatus.BAD_REQUEST,"DATA_INTEGRITY_VIOLATION");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<?> handleProductNotFoundException(ProductNotFoundException ex) {
+        String message = messageSource.getMessage("product.not.found", new Object[]{ex.getId()}, LocaleContextHolder.getLocale());
+        Map<String, String> errors = new HashMap<>();
+        if (ex.getCause() != null) {
+            errors.put(ex.getCause().getMessage(), ex.getMessage());
+        }
+        CustomErrorResponse errorResponse = new CustomErrorResponse(message,HttpStatus.BAD_REQUEST, errors,"PRODUCT_NOT_FOUND");
+        return  new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

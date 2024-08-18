@@ -5,6 +5,7 @@ import com.toosterr.backend.entity.*;
 import com.toosterr.backend.exception.attributeExcpetion.ProductAttributeNotFoundException;
 import com.toosterr.backend.exception.brandException.BrandNotFoundException;
 import com.toosterr.backend.exception.categoryException.CategoryNotFoundException;
+import com.toosterr.backend.exception.productException.ProductNotFoundException;
 import com.toosterr.backend.repository.*;
 import com.toosterr.backend.util.Helper;
 import jakarta.transaction.Transactional;
@@ -100,6 +101,7 @@ public class ProductService {
 
         productRepository.save(prod);
         productAttributeRepository.saveAll(productAttributes.orElse(null));
+        //if(true) throw new RuntimeException("Transaction fail scenario");
         productCategoryRepository.saveAll(productCategories.orElse(null));
         return true;
 
@@ -122,4 +124,12 @@ public class ProductService {
         return sku;
     }
 
+    public boolean deleteProductById(Integer id) {
+        Product product = productRepository.findById(id).orElse(null);
+        if(product == null) {
+            throw new ProductNotFoundException("Product with not found", id);
+        }
+        productRepository.delete(product);
+        return true;
+    }
 }
