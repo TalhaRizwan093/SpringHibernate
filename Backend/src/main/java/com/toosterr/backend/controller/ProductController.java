@@ -34,9 +34,14 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @PostMapping("/add/product")
+    @PostMapping("product/add")
     public ResponseEntity<?> addProduct(@Valid @RequestBody SaveProductRequest product) {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    }
+
+    @DeleteMapping("product/delete/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
+        return new ResponseEntity<>(productService.deleteProductById(id), HttpStatus.OK);
     }
 
 }
