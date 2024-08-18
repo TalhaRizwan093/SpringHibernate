@@ -11,7 +11,7 @@ In this repository you can learn all the stuff about Hibernate. Moreover you can
 - 1 Category can have multiple attibutes.
 - The detailed schema is shown below although some attributes are missing.
 
-(Figure goes here)
+![Product-Category ERD](https://github.com/user-attachments/assets/38855980-cd27-4c24-9500-10b92bb945cd)
 
 ### Hibernate Information
 
