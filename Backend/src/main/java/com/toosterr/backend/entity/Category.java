@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -25,5 +27,11 @@ public class Category extends BaseEntity {
     @Column(name = "category_name", unique = true, nullable = false)
     public String categoryName;
     public String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    public List<ProductCategory> productCategories;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Attribute> categoryAttributes;
 
 }

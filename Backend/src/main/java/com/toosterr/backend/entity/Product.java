@@ -29,7 +29,7 @@ public class Product extends BaseEntity {
     private double price;
     private int quantity;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 

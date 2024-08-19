@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +25,12 @@ public class Attribute extends BaseEntity {
     private String name;
     private String type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
+    private List<ProductAttribute> attributesProduct;
+
 
 }

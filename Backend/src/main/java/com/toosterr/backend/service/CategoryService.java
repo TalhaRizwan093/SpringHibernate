@@ -2,6 +2,7 @@ package com.toosterr.backend.service;
 
 import com.toosterr.backend.dto.AddCategoryRequest;
 import com.toosterr.backend.entity.Category;
+import com.toosterr.backend.exception.categoryException.CategoryNotFoundException;
 import com.toosterr.backend.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,14 @@ public class CategoryService {
                 .build();
         return categoryRepository.save(categoryEntity);
 
+    }
+
+    public boolean deleteCategory(int id) {
+        if(categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+            return true;
+        } else{
+            throw new CategoryNotFoundException("Category Not found");
+        }
     }
 }
