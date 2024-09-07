@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository  extends PagingAndSortingRepository<Product, Integer>, JpaRepository<Product, Integer> {
@@ -20,4 +22,7 @@ public interface ProductRepository  extends PagingAndSortingRepository<Product, 
 
     boolean existsBySku(String sku);
 
+    Optional<List<Product>> findByBrandId(Integer id);
+
+    Optional<List<Product>> findByCategories_Id(Integer id);
 }

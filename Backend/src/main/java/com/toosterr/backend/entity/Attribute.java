@@ -1,5 +1,7 @@
 package com.toosterr.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -27,10 +29,7 @@ public class Attribute extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private Category category;
-
-    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
-    private List<ProductAttribute> attributesProduct;
-
 
 }

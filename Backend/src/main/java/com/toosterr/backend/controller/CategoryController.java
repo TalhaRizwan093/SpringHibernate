@@ -32,4 +32,9 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.deleteCategory(id), HttpStatus.OK);
     }
 
+    @GetMapping("/category/attribute/{id}")
+    public ResponseEntity<?> getCategoriesByAttribute(@PathVariable Integer id) {
+        return new ResponseEntity<>(categoryService.getCategoriesByAttributeId(id), HttpStatus.OK);
+    }
+
 }

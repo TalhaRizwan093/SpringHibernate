@@ -1,5 +1,7 @@
 package com.toosterr.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -23,9 +25,11 @@ public class ProductAttribute extends BaseEntity {
 
     @ManyToOne()
     @JoinColumn(name = "attribute_id")
+    @JsonBackReference
     private Attribute attribute;
 
     @ManyToOne()
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 }
