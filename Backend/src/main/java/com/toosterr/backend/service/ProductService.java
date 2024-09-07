@@ -135,12 +135,17 @@ public class ProductService {
     }
 
     public List<Product> getProductByBrandId(Integer id) {
-        return productRepository.findByBrandId(id)
+        return productRepository.findByBrand_Id(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
     }
 
     public List<Product> getProductByCategoryId(Integer id) {
         return productRepository.findByCategories_Id(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
+    }
+
+    public List<Product> getProductByAttributeId(Integer id) {
+        return productRepository.findByAttributes_Id(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
     }
 }

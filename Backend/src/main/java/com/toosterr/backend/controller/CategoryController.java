@@ -37,4 +37,9 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.getCategoriesByAttributeId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/category/product/{id}")
+    public ResponseEntity<?> getCategoriesByProduct(@PathVariable Integer id) {
+        return new ResponseEntity<>(categoryService.getCategoriesByProductId(id), HttpStatus.OK);
+    }
+
 }

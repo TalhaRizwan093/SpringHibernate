@@ -54,4 +54,9 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProductByCategoryId(id), HttpStatus.OK);
     }
 
+    @GetMapping("/product/attribute/{id}")
+    public ResponseEntity<?> getProductByAttribute(@PathVariable Integer id) {
+        return new ResponseEntity<>(productService.getProductByAttributeId(id), HttpStatus.OK);
+    }
+
 }

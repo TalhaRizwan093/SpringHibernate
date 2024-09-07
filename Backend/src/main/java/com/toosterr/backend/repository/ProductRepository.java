@@ -22,7 +22,9 @@ public interface ProductRepository  extends PagingAndSortingRepository<Product, 
 
     boolean existsBySku(String sku);
 
-    Optional<List<Product>> findByBrandId(Integer id);
+    Optional<List<Product>> findByBrand_Id(Integer id);
 
     Optional<List<Product>> findByCategories_Id(Integer id);
+
+    Optional<List<Product>> findByAttributes_Id(Integer id);
 }
