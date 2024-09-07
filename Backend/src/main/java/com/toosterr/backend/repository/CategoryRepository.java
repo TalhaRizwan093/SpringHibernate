@@ -16,4 +16,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
         Optional<Category> getCategoryById(Integer categoryId);
 
         Optional<List<Category>> findAllByIdIn(Collection<Integer> id);
+
+        Optional<List<Category>> findByCategoryAttributes_Id(Integer id);
+
+        Optional<List<Category>> findByProductCategories_Id(Integer id);
 }

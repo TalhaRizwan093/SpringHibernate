@@ -1,5 +1,7 @@
 package com.toosterr.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -20,10 +22,12 @@ public class ProductCategory extends BaseEntity {
 
     @ManyToOne()
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     @ManyToOne()
     @JoinColumn(name = "category_id")
+    @JsonBackReference
     private Category category;
 
 }

@@ -1,5 +1,6 @@
 package com.toosterr.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -37,12 +38,14 @@ public class Product extends BaseEntity {
     @JoinTable(name = "product_category",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JsonManagedReference
     private List<Category> categories;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "product_attribute",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id"))
+    @JsonManagedReference
     private List<Attribute> attributes;
 
 }

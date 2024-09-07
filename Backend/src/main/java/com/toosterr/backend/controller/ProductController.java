@@ -34,14 +34,29 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(pageNumber, pageSize), HttpStatus.OK);
     }
 
-    @PostMapping("product/add")
+    @PostMapping("/product/add")
     public ResponseEntity<?> addProduct(@Valid @RequestBody SaveProductRequest product) {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
     }
 
-    @DeleteMapping("product/delete/{id}")
+    @DeleteMapping("/product/delete/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Integer id) {
         return new ResponseEntity<>(productService.deleteProductById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/product/brand/{id}")
+    public ResponseEntity<?> getProductByBrand(@PathVariable Integer id) {
+        return new ResponseEntity<>(productService.getProductByBrandId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/product/category/{id}")
+    public ResponseEntity<?> getProductByCategory(@PathVariable Integer id) {
+        return new ResponseEntity<>(productService.getProductByCategoryId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/product/attribute/{id}")
+    public ResponseEntity<?> getProductByAttribute(@PathVariable Integer id) {
+        return new ResponseEntity<>(productService.getProductByAttributeId(id), HttpStatus.OK);
     }
 
 }

@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -131,5 +132,20 @@ public class ProductService {
         }
         productRepository.delete(product);
         return true;
+    }
+
+    public List<Product> getProductByBrandId(Integer id) {
+        return productRepository.findByBrand_Id(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
+    }
+
+    public List<Product> getProductByCategoryId(Integer id) {
+        return productRepository.findByCategories_Id(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
+    }
+
+    public List<Product> getProductByAttributeId(Integer id) {
+        return productRepository.findByAttributes_Id(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product with not found", id));
     }
 }

@@ -39,4 +39,14 @@ public class CategoryService {
             throw new CategoryNotFoundException("Category Not found");
         }
     }
+
+    public List<Category> getCategoriesByAttributeId(Integer id) {
+        return categoryRepository.findByCategoryAttributes_Id(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category Not found"));
+    }
+
+    public List<Category> getCategoriesByProductId(Integer id) {
+        return categoryRepository.findByProductCategories_Id(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category Not found"));
+    }
 }
