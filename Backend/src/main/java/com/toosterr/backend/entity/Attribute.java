@@ -29,7 +29,11 @@ public class Attribute extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
-    @JsonBackReference
+    @JsonManagedReference
     private Category category;
+
+    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<ProductAttribute> attributesProduct;
 
 }
